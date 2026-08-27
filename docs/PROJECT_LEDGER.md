@@ -80,3 +80,45 @@ is normative and requires a demonstrated CORE_GAP.
 **Next intended step.** Hand `b011511` and Standard 1.0 to `hml-reasoning-corpus`; regenerate
 the double-encoded 50K HML view once from the frozen renderer; validate UTF-8 at the decoded
 payload level; rebuild hashes and manifests; then design the matched GPU experiment.
+
+---
+
+## 2026-08-27 (second) — record provenance by commit, not by local path
+
+**Branch** `main`, following `5e0fc61`.
+
+**Objective.** Pre-publication check before pushing the Standard to its remote.
+
+**Files and systems changed.** `tools/extract_implementation.py`,
+`conformance/run_conformance.py`, `tools/audit_standard.py`, plus the regenerated artifacts
+they produce (`machine/_extracted.json`, `conformance/RESULTS.json`,
+`reports/STANDARD_CONFORMANCE_AUDIT.md`, manifest).
+
+**What was completed.** A scan before publishing found three tracked files embedding the
+absolute local path of the implementation checkout. The generators now record the
+**implementation commit** instead. That is both the right thing to publish and strictly
+better provenance: the path describes whoever ran the extraction, the commit describes what
+was extracted. A credential scan found nothing; the `token` matches were all tokenizer prose.
+
+**Decisions made and why.** The repository is private, so the path leak was low-stakes.
+The change was kept anyway because commit provenance is more useful than a filesystem
+location, and a Standard that pins its sources by commit everywhere else should not make an
+exception here.
+
+**Tests and verification actually executed.**
+
+- Full regeneration from the three sources after the change.
+- `conformance/run_conformance.py`: **59 specimens, 59 PASS, 0 FAIL**, 58/59 rules covered.
+- `tools/audit_standard.py`: completeness, traceability, consistency, conformance — all
+  **PASS**. `HML_STANDARD_FREEZE_READY = YES`.
+- `grep` for `/Users/` across all tracked files: **zero remaining**.
+
+**Failures and unresolved uncertainty.** None. No normative content changed; the rule
+registry, atlas and reference are byte-identical apart from the provenance field.
+
+**Effect on the overall project.** None on the Standard's content. The
+`hml-standard-v1.0-2026-08-27` tag continues to point at `5e0fc61`, the commit whose audits
+were recorded in the freeze report; this commit is a provenance correction on top of it.
+
+**Next intended step.** Push `main` and the tag to the remote. Then hand `b011511` and
+Standard 1.0 to `hml-reasoning-corpus` for the single 50K regeneration.

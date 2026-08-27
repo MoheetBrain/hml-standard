@@ -14,6 +14,7 @@ import dataclasses
 import enum
 import inspect
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -44,7 +45,15 @@ def main() -> int:
     from hamiltonian_lang.semantic_state import model as M
     from hamiltonian_lang import types as T
 
-    out: dict = {"source_root": str(root)}
+    # Record the commit, not the local path. The path is a property of whoever ran the
+    # extraction; the commit is a property of what was extracted, and this file is
+    # published.
+    try:
+        commit = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
+                                capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:
+        commit = "unknown"
+    out: dict = {"source_commit": commit}
 
     # ---- kernel inference rules -------------------------------------------
     rules = []

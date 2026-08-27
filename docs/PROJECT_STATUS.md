@@ -65,6 +65,12 @@ frozen implementation, four executed audits.
 Nothing was written from summaries. The rule registry, dictionary, kernel rules, invariants,
 vocabularies and schemas are extracted from the executable at those commits.
 
+**Provenance is recorded by commit, never by local path.** A pre-publication scan found three
+generated artifacts embedding the absolute path of the implementation checkout; the
+generators now emit `source_commit` and `implementation_commit` instead. A path describes
+whoever ran the extraction, a commit describes what was extracted. `grep` for `/Users/`
+across all tracked files returns zero.
+
 ## Decisions and Rationale
 
 - **Generate rather than transcribe.** Hand-written documentation drifts from code; the

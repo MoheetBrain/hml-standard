@@ -152,7 +152,8 @@ def conformance() -> bool:
              f"Passed: **{RESULTS['passed']}** · Failed: **{RESULTS['failed']}**",
              f"Rules with a specimen: **{RESULTS['rules_with_specimen']}"
              f"/{RESULTS['rules_total']}**", "",
-             f"Implementation under test: `{RESULTS['implementation_root']}`", "",
+             f"Implementation under test: commit "
+             f"`{RESULTS.get('implementation_commit', 'unknown')}`", "",
              "## Failures", ""]
     fails = [r for r in RESULTS["results"] if r["outcome"] == "FAIL"]
     lines += [f"- `{r['rule']}` {r['name']}: {r['detail']}" for r in fails] or ["None."]

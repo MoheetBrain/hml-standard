@@ -72,7 +72,7 @@ The kernel has exactly **20** inference rules. Everything else is library, backe
 | `modus_ponens` | 2 | `P, P implies Q  |-  Q` | — | — |
 | `modus_tollens` | 2 | `not Q, P implies Q  |-  not P` | — | — |
 | `multiply_both_sides` | 1 | `a = b  |-  a * k = b * k` | — | — |
-| `multiply_inequality` | 1 | `a < b  |-  a * k < b * k   [requires k > 0]` | ["ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"] | — |
+| `multiply_inequality` | 1 | `a < b  |-  a * k < b * k   [requires k > 0]` | ["ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)"] | — |
 | `reflexivity` | 0 | `|- t = t` | — | — |
 | `substitute` | 2 | `a = b, P  |-  P[a := b]` | — | — |
 | `subtract_both_sides` | 1 | `a = b  |-  a - k = b - k` | — | — |

@@ -127,10 +127,10 @@ Implementation: `src/hamiltonian_lang/reasoning/kernel.py` · `RULES['multiply_b
 
 #### HML-KERNEL-014 — multiply_inequality  `[NORMATIVE]`
 
-The kernel rule `multiply_inequality` MUST have arity 1 and the shape `a < b  |-  a * k < b * k   [requires k > 0]`. It MUST emit the obligations ["ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"]. Scaling preserves the direction of an inequality only for a positive multiplier; the obligation is mandatory.
+The kernel rule `multiply_inequality` MUST have arity 1 and the shape `a < b  |-  a * k < b * k   [requires k > 0]`. It MUST emit the obligations ["ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)"]. Scaling preserves the direction of an inequality only for a positive multiplier; the obligation is mandatory.
 
 Shape: `a < b  |-  a * k < b * k   [requires k > 0]`  ·  arity 1  ·  params `['by']`
-Obligations emitted: `["ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"]`
+Obligations emitted: `["ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)"]`
 
 Implementation: `src/hamiltonian_lang/reasoning/kernel.py` · `RULES['multiply_inequality']`
   ·  Conformance: `conformance/valid/kernel_multiply_inequality`

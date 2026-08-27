@@ -1,5 +1,5 @@
 {
- "source_root": "/Users/moheet/Documents/ChatGPT/hamiltonian-lang-final-signal",
+ "source_commit": "b011511e72572608eb7836d3b8a1a6bb794c890d",
  "kernel_rules": [
   {
    "name": "add_both_sides",
@@ -159,7 +159,7 @@
    ],
    "apply": "_apply_multiply_inequality",
    "obligations": [
-    "ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"
+    "ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)"
    ],
    "side_conditions": [],
    "shape": "a < b  |-  a * k < b * k   [requires k > 0]",

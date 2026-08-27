@@ -333,6 +333,16 @@ def _enum_specimens(M, neutral, verify, view, kernel):
     return out
 
 
+def _commit(root: Path) -> str:
+    """The commit under test. Recorded instead of the local path, which is published."""
+    import subprocess
+    try:
+        return subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
+                              capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:
+        return "unknown"
+
+
 def main() -> int:
     root = Path(sys.argv[1]).resolve()
     sys.path.insert(0, str(root / "src"))
@@ -359,7 +369,7 @@ def main() -> int:
     no_specimen = [r["id"] for r in rules if r["id"] not in covered]
 
     payload = {
-        "implementation_root": str(root),
+        "implementation_commit": _commit(root),
         "total_specimens": len(results),
         "passed": sum(1 for r in results if r["outcome"] == "PASS"),
         "failed": sum(1 for r in results if r["outcome"] == "FAIL"),

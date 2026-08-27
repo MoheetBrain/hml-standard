@@ -255,14 +255,14 @@
    "category": "kernel",
    "status": "NORMATIVE",
    "name": "multiply_inequality",
-   "statement": "The kernel rule `multiply_inequality` MUST have arity 1 and the shape `a < b  |-  a * k < b * k   [requires k > 0]`. It MUST emit the obligations [\"ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)\"]. Scaling preserves the direction of an inequality only for a positive multiplier; the obligation is mandatory.",
+   "statement": "The kernel rule `multiply_inequality` MUST have arity 1 and the shape `a < b  |-  a * k < b * k   [requires k > 0]`. It MUST emit the obligations [\"ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)\"]. Scaling preserves the direction of an inequality only for a positive multiplier; the obligation is mandatory.",
    "arity": 1,
    "params": [
     "by"
    ],
    "shape": "a < b  |-  a * k < b * k   [requires k > 0]",
    "obligations": [
-    "ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"
+    "ObligationSpec(build=<function _gt_zero at 0x107dbfc40>, reason='order_preserving_multiplier', mandatory=True)"
    ],
    "side_conditions": [],
    "spec_section": "spec/20_verification.md",
