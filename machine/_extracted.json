@@ -1,0 +1,1025 @@
+{
+ "source_root": "/Users/moheet/Documents/ChatGPT/hamiltonian-lang-final-signal",
+ "kernel_rules": [
+  {
+   "name": "add_both_sides",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  a + k = b + k",
+   "doc": "Adding the same term to both sides preserves equality unconditionally."
+  },
+  {
+   "name": "add_inequality",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "_apply_add_inequality",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a < b  |-  a + k < b + k",
+   "doc": "Translation preserves order for any k."
+  },
+  {
+   "name": "and_elim_left",
+   "arity": 1,
+   "params": [],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "P and Q  |-  P",
+   "doc": "Conjunction elimination, left."
+  },
+  {
+   "name": "and_elim_right",
+   "arity": 1,
+   "params": [],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "P and Q  |-  Q",
+   "doc": "Conjunction elimination, right."
+  },
+  {
+   "name": "and_intro",
+   "arity": 2,
+   "params": [],
+   "apply": "_apply_and_intro",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "P, Q  |-  P and Q",
+   "doc": "Conjunction introduction."
+  },
+  {
+   "name": "congruence",
+   "arity": 1,
+   "params": [
+    "fn"
+   ],
+   "apply": "_apply_congruence",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  f(a) = f(b)",
+   "doc": "Functions respect equality. f must be a named unary function."
+  },
+  {
+   "name": "divide_both_sides",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  a / k = b / k   [requires k != 0]",
+   "doc": "Dividing both sides is sound only for a non-zero divisor. The obligation comes from the term, not from this spec -- see reasoning/partiality.py."
+  },
+  {
+   "name": "exists_intro",
+   "arity": 1,
+   "params": [
+    "var"
+   ],
+   "apply": "_apply_exists_intro",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "phi(a)  |-  exists a : D . phi(a)   [a is a typed witness]",
+   "doc": "Existential introduction from a checked witness fact. The witness is a resolved module-level variable and the binder uses its exact declared domain; this rule does not assert uniqueness."
+  },
+  {
+   "name": "forall_elim",
+   "arity": 1,
+   "params": [
+    "at"
+   ],
+   "apply": "_apply_forall_elim",
+   "obligations": [],
+   "side_conditions": [
+    "instantiation_domain"
+   ],
+   "shape": "forall x : D . phi(x)  |-  phi[t/x]   [requires t : D]",
+   "doc": "Universal instantiation. Substitution is capture-avoiding, and a term mentioning a bound name is refused rather than substituted. The instantiation term must inhabit the binder's declared domain."
+  },
+  {
+   "name": "forall_intro",
+   "arity": 1,
+   "params": [
+    "var"
+   ],
+   "apply": "_apply_forall_intro",
+   "obligations": [],
+   "side_conditions": [
+    "eigenvariable"
+   ],
+   "shape": "phi(a)  |-  forall a : D . phi(a)   [a arbitrary]",
+   "doc": "Universal introduction. The variable must be ARBITRARY: it may not occur free in any assumption in scope, or the proof was about that particular value and generalising it is unsound. Proving phi for many sample values is not this rule and never becomes it."
+  },
+  {
+   "name": "modus_ponens",
+   "arity": 2,
+   "params": [],
+   "apply": "_apply_modus_ponens",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "P, P implies Q  |-  Q",
+   "doc": "The antecedent must match the implication's left side exactly."
+  },
+  {
+   "name": "modus_tollens",
+   "arity": 2,
+   "params": [],
+   "apply": "_apply_modus_tollens",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "not Q, P implies Q  |-  not P",
+   "doc": "Denying the consequent."
+  },
+  {
+   "name": "multiply_both_sides",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  a * k = b * k",
+   "doc": "Multiplying both sides preserves equality for any k, including zero."
+  },
+  {
+   "name": "multiply_inequality",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "_apply_multiply_inequality",
+   "obligations": [
+    "ObligationSpec(build=<function _gt_zero at 0x105ed4a40>, reason='order_preserving_multiplier', mandatory=True)"
+   ],
+   "side_conditions": [],
+   "shape": "a < b  |-  a * k < b * k   [requires k > 0]",
+   "doc": "Scaling preserves the direction of an inequality only for a positive multiplier; the obligation is mandatory."
+  },
+  {
+   "name": "reflexivity",
+   "arity": 0,
+   "params": [
+    "term"
+   ],
+   "apply": "_apply_reflexivity",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "|- t = t",
+   "doc": "Equality is reflexive for every well-typed, defined term. Partial terms retain their ordinary term-level definedness obligations."
+  },
+  {
+   "name": "substitute",
+   "arity": 2,
+   "params": [],
+   "apply": "_apply_substitute",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b, P  |-  P[a := b]",
+   "doc": "Substitution of equals. Does not descend into quantifier bodies, so a step that would require capture-avoiding substitution is REJECTED rather than performed unsoundly."
+  },
+  {
+   "name": "subtract_both_sides",
+   "arity": 1,
+   "params": [
+    "by"
+   ],
+   "apply": "go",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  a - k = b - k",
+   "doc": "Subtracting the same term from both sides preserves equality."
+  },
+  {
+   "name": "symmetry",
+   "arity": 1,
+   "params": [],
+   "apply": "_apply_symmetry",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b  |-  b = a",
+   "doc": "Equality is symmetric."
+  },
+  {
+   "name": "transitivity",
+   "arity": 2,
+   "params": [],
+   "apply": "_apply_transitivity",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a = b, b = c  |-  a = c",
+   "doc": "Equality is transitive. The shared middle term must match exactly."
+  },
+  {
+   "name": "weaken_inequality",
+   "arity": 1,
+   "params": [],
+   "apply": "_apply_weaken_inequality",
+   "obligations": [],
+   "side_conditions": [],
+   "shape": "a < b  |-  a <= b",
+   "doc": "Strict to non-strict. One-directional by construction: there is no rule in this kernel that strengthens <= to <, because none is sound."
+  }
+ ],
+ "kernel_rule_count": 20,
+ "state_records": [
+  {
+   "name": "Action",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "operation",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "summary",
+     "type": "str",
+     "has_default": true,
+     "default": ""
+    },
+    {
+     "name": "output_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "preconditions",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "obligations_created",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "obligations_discharged",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "typing",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "warrant",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "goal_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "scope_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "branch_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "candidate_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "epistemic_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "doc": "One proposed transition: the five orthogonal axes of ``docs/04`` §2.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 285
+  },
+  {
+   "name": "Branch",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "predicate",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "BranchStatus",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "conclusion",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "partition_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "doc": "One case of a case analysis, with its local assumption and local conclusion.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 221
+  },
+  {
+   "name": "Candidate",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "CandidateStatus",
+     "has_default": true,
+     "default": "PROPOSED"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "constraint_ids",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "origin",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "evidence_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "verification_result",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "doc": "A proposed mathematical object and the constraints it must satisfy.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 192
+  },
+  {
+   "name": "Claim",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "ClaimStatus",
+     "has_default": true,
+     "default": "GIVEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "domain",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    }
+   ],
+   "doc": "One proposition in the deductive state, with its ancestry and scope.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 180
+  },
+  {
+   "name": "EvidenceRecord",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "kind",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "str",
+     "has_default": true,
+     "default": "UNKNOWN"
+    },
+    {
+     "name": "trusted",
+     "type": "bool",
+     "has_default": true,
+     "default": false
+    },
+    {
+     "name": "supports_rule",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "premise_ids",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "payload",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "doc": "A neutral evidence record as it arrives from the corpus.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 263
+  },
+  {
+   "name": "Goal",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "GoalStatus",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    }
+   ],
+   "doc": "Goal(id: 'str', proposition: 'str', status: 'GoalStatus' = <GoalStatus.OPEN: 'OPEN'>, scope: 'str' = 'global')",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 236
+  },
+  {
+   "name": "Obligation",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "ObligationState",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "mandatory",
+     "type": "bool",
+     "has_default": true,
+     "default": true
+    },
+    {
+     "name": "origin",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "discharge_evidence_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "doc": "Proof debt. Field names follow the neutral schema exactly.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 244
+  },
+  {
+   "name": "SemanticState",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "claims",
+     "type": "dict[str, Claim]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "candidates",
+     "type": "dict[str, Candidate]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "branches",
+     "type": "dict[str, Branch]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "goals",
+     "type": "dict[str, Goal]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "obligations",
+     "type": "dict[str, Obligation]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "active_scopes",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": [
+      "global"
+     ]
+    }
+   ],
+   "doc": "A complete typed mathematical state. The canonical machine object.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 309
+  },
+  {
+   "name": "Transition",
+   "frozen": true,
+   "fields": [
+    {
+     "name": "case_id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "action",
+     "type": "Action",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "state_before",
+     "type": "SemanticState",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "state_after",
+     "type": "SemanticState",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "evidence",
+     "type": "dict[str, EvidenceRecord]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "schema_version",
+     "type": "str",
+     "has_default": true,
+     "default": "semantic-firewall-case-0.1.0"
+    },
+    {
+     "name": "source",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "doc": "``state_before --action--> state_after``, with the evidence offered for it.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 333
+  }
+ ],
+ "enumerations": [
+  {
+   "name": "BranchStatus",
+   "members": [
+    "OPEN",
+    "CLOSED",
+    "JOINED",
+    "ABANDONED",
+    "UNKNOWN"
+   ],
+   "doc": "A case-analysis branch. ``JOINED`` is verifier-owned (SF-R08).",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 116
+  },
+  {
+   "name": "CandidateStatus",
+   "members": [
+    "PROPOSED",
+    "UNVERIFIED",
+    "VERIFIED",
+    "REJECTED",
+    "UNKNOWN"
+   ],
+   "doc": "The generic candidate lifecycle (SF-R06).",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 77
+  },
+  {
+   "name": "ClaimStatus",
+   "members": [
+    "GIVEN",
+    "ASSUMED",
+    "DERIVED",
+    "VERIFIED",
+    "REFUTED",
+    "UNRESOLVED",
+    "UNKNOWN"
+   ],
+   "doc": "What is known about a proposition in the deductive state.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 56
+  },
+  {
+   "name": "ErrorClass",
+   "members": [
+    "MISSING_DEPENDENCY",
+    "SCOPE_VIOLATION",
+    "PRECONDITION_VIOLATION",
+    "OBLIGATION_VIOLATION",
+    "CANDIDATE_PROMOTION",
+    "INVALID_BRANCH_JOIN",
+    "WARRANT_VIOLATION",
+    "EPISTEMIC_VIOLATION",
+    "GOAL_DISCHARGE",
+    "TYPE_DOMAIN_VIOLATION"
+   ],
+   "doc": "Named violation classes, matching the neutral fixtures' ``expected_error_class``.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 165
+  },
+  {
+   "name": "GoalStatus",
+   "members": [
+    "OPEN",
+    "DISCHARGED",
+    "UNKNOWN"
+   ],
+   "doc": "What is being proved, and whether it has been (D-059).",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 133
+  },
+  {
+   "name": "ObligationState",
+   "members": [
+    "OPEN",
+    "DISCHARGED",
+    "FAILED",
+    "UNKNOWN"
+   ],
+   "doc": "Enum where members are also (and must be) strings",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 126
+  },
+  {
+   "name": "StrEnum",
+   "members": [],
+   "doc": "Enum where members are also (and must be) strings",
+   "file": "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/enum.py",
+   "line": 1309
+  },
+  {
+   "name": "Verdict",
+   "members": [
+    "VALID",
+    "INVALID",
+    "UNRESOLVED"
+   ],
+   "doc": "The three-valued outcome of checking one transition.",
+   "file": "src/hamiltonian_lang/semantic_state/model.py",
+   "line": 152
+  }
+ ],
+ "types": [
+  {
+   "name": "ConceptType",
+   "is_enum": false,
+   "members": null,
+   "doc": "The type of a user-minted concept instance (see spec/concept_schema.yaml).",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 603
+  },
+  {
+   "name": "Dimension",
+   "is_enum": false,
+   "members": null,
+   "doc": "A rational-exponent vector over :data:`BASE_DIMENSIONS`, plus optional variables.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 188
+  },
+  {
+   "name": "DistributionType",
+   "is_enum": false,
+   "members": null,
+   "doc": "A probability law over ``support``. NOT a value of ``support``.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 511
+  },
+  {
+   "name": "EventType",
+   "is_enum": false,
+   "members": null,
+   "doc": "A measurable set of outcomes: a formula whose truth depends on the draw.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 580
+  },
+  {
+   "name": "FunctionType",
+   "is_enum": false,
+   "members": null,
+   "doc": "FunctionType(domain: 'tuple[Type, ...]', codomain: 'Type')",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 471
+  },
+  {
+   "name": "MatrixType",
+   "is_enum": false,
+   "members": null,
+   "doc": "MatrixType(element: 'Type', rows: 'ShapeExtent' = None, cols: 'ShapeExtent' = None)",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 402
+  },
+  {
+   "name": "PredicateType",
+   "is_enum": false,
+   "members": null,
+   "doc": "PredicateType(domain: 'tuple[Type, ...]')",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 485
+  },
+  {
+   "name": "ProductType",
+   "is_enum": false,
+   "members": null,
+   "doc": "An ordered tuple of types, ``Product[T1, T2, ...]``.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 447
+  },
+  {
+   "name": "PropositionType",
+   "is_enum": false,
+   "members": null,
+   "doc": "PropositionType()",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 574
+  },
+  {
+   "name": "QuantityType",
+   "is_enum": false,
+   "members": null,
+   "doc": "A real-valued magnitude carrying a physical dimension.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 334
+  },
+  {
+   "name": "RandomVariableType",
+   "is_enum": false,
+   "members": null,
+   "doc": "A measurable function into ``codomain``. NOT a value of ``codomain``.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 498
+  },
+  {
+   "name": "ScalarType",
+   "is_enum": false,
+   "members": null,
+   "doc": "ScalarType(name: 'str')",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 131
+  },
+  {
+   "name": "SetType",
+   "is_enum": false,
+   "members": null,
+   "doc": "SetType(element: 'Type')",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 436
+  },
+  {
+   "name": "SymbolicExtent",
+   "is_enum": false,
+   "members": null,
+   "doc": "A resolved Natural-valued index occurring in a finite shape.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 350
+  },
+  {
+   "name": "TensorType",
+   "is_enum": false,
+   "members": null,
+   "doc": "TensorType(element: 'Type', shape: 'tuple[ShapeExtent, ...]' = ())",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 422
+  },
+  {
+   "name": "Type",
+   "is_enum": false,
+   "members": null,
+   "doc": "Base class for all Hamiltonian Lang types.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 65
+  },
+  {
+   "name": "UnknownType",
+   "is_enum": false,
+   "members": null,
+   "doc": "Inference placeholder. Never appears in a well-typed frozen program.",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 613
+  },
+  {
+   "name": "VectorType",
+   "is_enum": false,
+   "members": null,
+   "doc": "VectorType(element: 'Type', length: 'ShapeExtent' = None)",
+   "file": "src/hamiltonian_lang/types.py",
+   "line": 387
+  }
+ ],
+ "backends": [
+  {
+   "name": "base",
+   "file": "src/hamiltonian_lang/backends/base.py"
+  },
+  {
+   "name": "canonical",
+   "file": "src/hamiltonian_lang/backends/canonical.py"
+  },
+  {
+   "name": "english",
+   "file": "src/hamiltonian_lang/backends/english.py"
+  },
+  {
+   "name": "hml",
+   "file": "src/hamiltonian_lang/backends/hml.py"
+  },
+  {
+   "name": "latex",
+   "file": "src/hamiltonian_lang/backends/latex.py"
+  },
+  {
+   "name": "lean",
+   "file": "src/hamiltonian_lang/backends/lean.py"
+  },
+  {
+   "name": "stan",
+   "file": "src/hamiltonian_lang/backends/stan.py"
+  },
+  {
+   "name": "sympy",
+   "file": "src/hamiltonian_lang/backends/sympy.py"
+  }
+ ],
+ "libraries": [
+  {
+   "name": "algebra",
+   "file": "src/hamiltonian_lang/libraries/algebra.py"
+  },
+  {
+   "name": "calculus",
+   "file": "src/hamiltonian_lang/libraries/calculus.py"
+  },
+  {
+   "name": "numerical",
+   "file": "src/hamiltonian_lang/libraries/numerical.py"
+  },
+  {
+   "name": "probability",
+   "file": "src/hamiltonian_lang/libraries/probability.py"
+  },
+  {
+   "name": "theorem",
+   "file": "src/hamiltonian_lang/libraries/theorem.py"
+  }
+ ]
+}

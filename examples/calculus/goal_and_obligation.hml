@@ -1,0 +1,41 @@
+transition EX-CALC-1
+  schema "semantic-firewall-case-0.1.0"
+
+state before
+  scopes global
+  claim h1
+    proposition "f : ℝ → ℝ"
+    status GIVEN
+  claim h2
+    proposition "f is differentiable at a"
+    status ASSUMED
+  goal g1
+    proposition "f is continuous at a"
+    status OPEN
+  obligation o1
+    proposition "a ∈ dom f"
+    status OPEN
+    mandatory true
+
+action a1
+  operation "APPLY_THEOREM"
+  depends h2
+  warrant {"name": "differentiable_implies_continuous", "rule": "THEOREM"}
+  goal_effect {"advances": "g1"}
+
+state after
+  scopes global
+  claim h1
+    proposition "f : ℝ → ℝ"
+    status GIVEN
+  claim h2
+    proposition "f is differentiable at a"
+    status ASSUMED
+  goal g1
+    proposition "f is continuous at a"
+    status OPEN
+  obligation o1
+    proposition "a ∈ dom f"
+    status OPEN
+    mandatory true
+

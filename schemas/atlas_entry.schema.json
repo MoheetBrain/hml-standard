@@ -1,0 +1,68 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://hml-standard/schemas/atlas_entry.schema.json",
+ "title": "HML semantic atlas entry",
+ "type": "object",
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "domain": {
+   "type": "string"
+  },
+  "concept": {
+   "type": "string"
+  },
+  "role": {
+   "type": "string"
+  },
+  "hml_representation": {
+   "type": "string"
+  },
+  "carry": {
+   "type": "boolean"
+  },
+  "manipulate": {
+   "type": "boolean"
+  },
+  "verify": {
+   "enum": [
+    "CORE",
+    "LIBRARY",
+    "BACKEND",
+    "UNSUPPORTED"
+   ]
+  },
+  "verdict": {
+   "enum": [
+    "NO_GAP",
+    "LIBRARY_GAP",
+    "BACKEND_GAP",
+    "REPRESENTATION_GAP",
+    "CORE_GAP",
+    "POLICY_GAP",
+    "UNSUPPORTED"
+   ]
+  },
+  "note": {
+   "type": "string"
+  },
+  "version_first_checked": {
+   "type": "string"
+  },
+  "evidence_confidence": {
+   "type": "string"
+  }
+ },
+ "required": [
+  "id",
+  "domain",
+  "concept",
+  "hml_representation",
+  "carry",
+  "manipulate",
+  "verify",
+  "verdict"
+ ],
+ "additionalProperties": false
+}

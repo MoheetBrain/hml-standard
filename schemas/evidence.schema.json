@@ -1,0 +1,48 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://hml-standard/schemas/evidencerecord.schema.json",
+ "title": "HML evidence record",
+ "type": "object",
+ "properties": {
+  "id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "kind": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "status": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "trusted": {
+   "type": "boolean"
+  },
+  "supports_rule": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "premise_ids": {
+   "type": "array"
+  },
+  "payload": {
+   "type": "object"
+  }
+ },
+ "required": [
+  "id",
+  "kind"
+ ],
+ "additionalProperties": false,
+ "x-hml-standard-version": "1.0",
+ "x-implementation": "src/hamiltonian_lang/semantic_state/model.py:263"
+}

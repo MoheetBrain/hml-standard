@@ -1,0 +1,54 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://hml-standard/schemas/obligation.schema.json",
+ "title": "HML obligation",
+ "type": "object",
+ "properties": {
+  "id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "proposition": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "status": {
+   "type": "string",
+   "enum": [
+    "OPEN",
+    "DISCHARGED",
+    "FAILED",
+    "UNKNOWN"
+   ]
+  },
+  "mandatory": {
+   "type": "boolean"
+  },
+  "origin": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "dependencies": {
+   "type": "array"
+  },
+  "discharge_evidence_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "required": [
+  "id",
+  "proposition"
+ ],
+ "additionalProperties": false,
+ "x-hml-standard-version": "1.0",
+ "x-implementation": "src/hamiltonian_lang/semantic_state/model.py:244"
+}

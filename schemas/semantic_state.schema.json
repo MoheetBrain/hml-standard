@@ -1,0 +1,30 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://hml-standard/schemas/semanticstate.schema.json",
+ "title": "HML semantic state",
+ "type": "object",
+ "properties": {
+  "claims": {
+   "type": "object"
+  },
+  "candidates": {
+   "type": "object"
+  },
+  "branches": {
+   "type": "object"
+  },
+  "goals": {
+   "type": "object"
+  },
+  "obligations": {
+   "type": "object"
+  },
+  "active_scopes": {
+   "type": "array"
+  }
+ },
+ "required": [],
+ "additionalProperties": false,
+ "x-hml-standard-version": "1.0",
+ "x-implementation": "src/hamiltonian_lang/semantic_state/model.py:309"
+}

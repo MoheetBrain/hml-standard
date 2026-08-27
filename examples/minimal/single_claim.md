@@ -1,0 +1,28 @@
+# single_claim
+
+The smallest well-formed transition: one GIVEN claim and one action.
+
+Round-trips: `parse(render(t)) == t`.
+
+```
+transition EX-MIN-1
+  schema "semantic-firewall-case-0.1.0"
+
+state before
+  scopes global
+  claim p0
+    proposition "x = 1"
+    status GIVEN
+
+action a1
+  operation "LEAN_TACTIC"
+  depends p0
+  warrant {"rule": "LEAN_TACTIC"}
+
+state after
+  scopes global
+  claim p0
+    proposition "x = 1"
+    status GIVEN
+
+```

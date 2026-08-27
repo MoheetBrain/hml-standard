@@ -1,0 +1,72 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://hml-standard/schemas/action.schema.json",
+ "title": "HML action",
+ "type": "object",
+ "properties": {
+  "id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "operation": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "summary": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "output_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "dependencies": {
+   "type": "array"
+  },
+  "preconditions": {
+   "type": "array"
+  },
+  "obligations_created": {
+   "type": "array"
+  },
+  "obligations_discharged": {
+   "type": "array"
+  },
+  "typing": {
+   "type": "object"
+  },
+  "warrant": {
+   "type": "object"
+  },
+  "goal_effect": {
+   "type": "object"
+  },
+  "scope_effect": {
+   "type": "object"
+  },
+  "branch_effect": {
+   "type": "object"
+  },
+  "candidate_effect": {
+   "type": "object"
+  },
+  "epistemic_effect": {
+   "type": "object"
+  }
+ },
+ "required": [
+  "id",
+  "operation"
+ ],
+ "additionalProperties": false,
+ "x-hml-standard-version": "1.0",
+ "x-implementation": "src/hamiltonian_lang/semantic_state/model.py:285"
+}

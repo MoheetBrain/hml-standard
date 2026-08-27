@@ -1,0 +1,104 @@
+{
+ "standard": "HML Standard",
+ "version": "1.0",
+ "document": "MODEL_REFERENCE.md",
+ "purpose": "Compact operating manual for a model consuming the frozen HML surface.",
+ "traceable_to": "STANDARD.md",
+ "rules_cited": [
+  "HML-ACT-001",
+  "HML-ACT-002",
+  "HML-EPIS-001",
+  "HML-EPIS-002",
+  "HML-EPIS-003",
+  "HML-EPIS-004",
+  "HML-OBL-001",
+  "HML-REP-002",
+  "HML-REP-003",
+  "HML-STATE-004"
+ ],
+ "rules_cited_count": 10,
+ "all_cited_rules_exist": true,
+ "status_vocabularies": {
+  "BranchStatus": [
+   "OPEN",
+   "CLOSED",
+   "JOINED",
+   "ABANDONED",
+   "UNKNOWN"
+  ],
+  "CandidateStatus": [
+   "PROPOSED",
+   "UNVERIFIED",
+   "VERIFIED",
+   "REJECTED",
+   "UNKNOWN"
+  ],
+  "ClaimStatus": [
+   "GIVEN",
+   "ASSUMED",
+   "DERIVED",
+   "VERIFIED",
+   "REFUTED",
+   "UNRESOLVED",
+   "UNKNOWN"
+  ],
+  "ErrorClass": [
+   "MISSING_DEPENDENCY",
+   "SCOPE_VIOLATION",
+   "PRECONDITION_VIOLATION",
+   "OBLIGATION_VIOLATION",
+   "CANDIDATE_PROMOTION",
+   "INVALID_BRANCH_JOIN",
+   "WARRANT_VIOLATION",
+   "EPISTEMIC_VIOLATION",
+   "GOAL_DISCHARGE",
+   "TYPE_DOMAIN_VIOLATION"
+  ],
+  "GoalStatus": [
+   "OPEN",
+   "DISCHARGED",
+   "UNKNOWN"
+  ],
+  "ObligationState": [
+   "OPEN",
+   "DISCHARGED",
+   "FAILED",
+   "UNKNOWN"
+  ],
+  "Verdict": [
+   "VALID",
+   "INVALID",
+   "UNRESOLVED"
+  ]
+ },
+ "kernel_rules": [
+  "add_both_sides",
+  "add_inequality",
+  "and_elim_left",
+  "and_elim_right",
+  "and_intro",
+  "congruence",
+  "divide_both_sides",
+  "exists_intro",
+  "forall_elim",
+  "forall_intro",
+  "modus_ponens",
+  "modus_tollens",
+  "multiply_both_sides",
+  "multiply_inequality",
+  "reflexivity",
+  "substitute",
+  "subtract_both_sides",
+  "symmetry",
+  "transitivity",
+  "weaken_inequality"
+ ],
+ "tasks": [
+  "STATE_COMPREHENSION",
+  "ACTION_VALIDITY",
+  "ACTION_RANKING",
+  "TRANSITION",
+  "OBLIGATION_PREDICTION"
+ ],
+ "caveat": "On current corpus data ACTION_VALIDITY distinguishes FORMAL_TRACE from UNRESOLVED, not valid from invalid; OBLIGATION_PREDICTION has no corpus support."
+}

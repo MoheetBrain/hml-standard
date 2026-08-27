@@ -1,0 +1,25 @@
+{
+  "standard": "HML Standard",
+  "version": "1.0",
+  "release_date": "2026-08-27",
+  "semantic_implementation_commit": "b3d0af9ce5ed8d7c4d87086ceedd7e4fa5e74ad5",
+  "semantic_tag": "hml-semantic-freeze-vnext-2026-08-27",
+  "model_language_commit": "b011511e72572608eb7836d3b8a1a6bb794c890d",
+  "model_language_tag": "hml-model-language-v1-freeze-2026-08-27",
+  "normative_state_delta": false,
+  "implementation_repository": "hamiltonian-lang",
+  "data_repository": "hml-reasoning-corpus",
+  "kernel_inference_rules": 20,
+  "transition_invariants": 11,
+  "status_vocabularies": 7,
+  "generated_files": [
+    "REFERENCE.md",
+    "machine/hml_reference.json",
+    "machine/hml_dictionary.json",
+    "machine/hml_atlas.json",
+    "machine/hml_model_reference.json",
+    "standard/rules.json",
+    "conformance/RESULTS.json",
+    "TRACEABILITY.md"
+  ]
+}

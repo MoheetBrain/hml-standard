@@ -1,0 +1,426 @@
+{
+ "implementation_root": "/Users/moheet/Documents/ChatGPT/hamiltonian-lang-final-signal",
+ "total_specimens": 59,
+ "passed": 59,
+ "failed": 0,
+ "rules_total": 59,
+ "rules_with_specimen": 58,
+ "rules_without_specimen": [
+  "HML-VER-002"
+ ],
+ "results": [
+  {
+   "rule": "HML-STATE-001",
+   "name": "state_minimal",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "five record mappings plus active_scopes present; default scope is global"
+  },
+  {
+   "rule": "HML-STATE-002",
+   "name": "records_are_immutable",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "mutation rejected: FrozenInstanceError"
+  },
+  {
+   "rule": "HML-STATE-003",
+   "name": "key_id_disagree",
+   "kind": "round_trip",
+   "outcome": "PASS",
+   "detail": "mapping key 'key_a' and record id 'id_b' both preserved"
+  },
+  {
+   "rule": "HML-STATE-004",
+   "name": "scope_visibility_is_membership",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "claim in inactive scope is invisible; visible once the scope is active"
+  },
+  {
+   "rule": "HML-EPIS-001",
+   "name": "unknown_is_a_value",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "UNKNOWN survives the round trip and is rendered explicitly"
+  },
+  {
+   "rule": "HML-EPIS-001",
+   "name": "unknown_not_collapsed_to_false",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "ClaimStatus rejects FALSE/false/empty/None"
+  },
+  {
+   "rule": "HML-EPIS-003",
+   "name": "evidence_trust_is_separate_from_status",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "EvidenceRecord defaults: trusted=False, status=UNKNOWN"
+  },
+  {
+   "rule": "HML-OBL-002",
+   "name": "obligation_states_closed",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "ObligationState == ['OPEN', 'DISCHARGED', 'FAILED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-OBL-001",
+   "name": "mandatory_default",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "Obligation defaults to mandatory=True, status=OPEN"
+  },
+  {
+   "rule": "HML-ACT-001",
+   "name": "action_is_structural",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "Action carries 15 structural fields, not just an operation name"
+  },
+  {
+   "rule": "HML-TRANS-001",
+   "name": "verdict_vocabulary",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "Verdict == ['VALID', 'INVALID', 'UNRESOLVED']; UNRESOLVED is distinct from INVALID"
+  },
+  {
+   "rule": "HML-REP-001",
+   "name": "all_records",
+   "kind": "round_trip",
+   "outcome": "PASS",
+   "detail": "every record kind round-trips under structural equality"
+  },
+  {
+   "rule": "HML-REP-002",
+   "name": "determinism",
+   "kind": "round_trip",
+   "outcome": "PASS",
+   "detail": "equal transitions built in different mapping order render identically"
+  },
+  {
+   "rule": "HML-REP-003",
+   "name": "double_encoded_payload",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "payload carries decoded UTF-8; zero \\uXXXX sequences"
+  },
+  {
+   "rule": "HML-REP-004",
+   "name": "canonical_ascii",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "canonical identity document is ASCII-encoded, deliberately unlike HML-REP-003"
+  },
+  {
+   "rule": "HML-REP-005",
+   "name": "no_action_leak",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "render_state does not reveal the action"
+  },
+  {
+   "rule": "HML-BACK-001",
+   "name": "backend_declares_loss",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "Backend exposes drop/approximate/weaken for declaring translation loss"
+  },
+  {
+   "rule": "HML-EPIS-002",
+   "name": "candidate_status_is_separate_vocabulary",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "CandidateStatus cannot express GIVEN/DERIVED; the CANDIDATES invariant governs promotion (shared members: ['UNKNOWN', 'VERIFIED'])"
+  },
+  {
+   "rule": "HML-EPIS-004",
+   "name": "generator_cannot_self_certify",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "attestation is a separate trusted step; TrustMode == ['OFFLINE_REPLAY', 'RUNTIME']; AttestationError exists"
+  },
+  {
+   "rule": "HML-ACT-002",
+   "name": "missing_dependency_is_an_error_class",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "unresolved references are reported as ErrorClass.MISSING_DEPENDENCY"
+  },
+  {
+   "rule": "HML-VER-001",
+   "name": "version_manifest",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "VERSION.json pins both commits and both tags; state delta marked non-normative"
+  },
+  {
+   "rule": "HML-KERNEL-001",
+   "name": "kernel_add_both_sides",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  a + k = b + k`"
+  },
+  {
+   "rule": "HML-KERNEL-002",
+   "name": "kernel_add_inequality",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a < b  |-  a + k < b + k`"
+  },
+  {
+   "rule": "HML-KERNEL-003",
+   "name": "kernel_and_elim_left",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `P and Q  |-  P`"
+  },
+  {
+   "rule": "HML-KERNEL-004",
+   "name": "kernel_and_elim_right",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `P and Q  |-  Q`"
+  },
+  {
+   "rule": "HML-KERNEL-005",
+   "name": "kernel_and_intro",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 2, shape `P, Q  |-  P and Q`"
+  },
+  {
+   "rule": "HML-KERNEL-006",
+   "name": "kernel_congruence",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  f(a) = f(b)`"
+  },
+  {
+   "rule": "HML-KERNEL-007",
+   "name": "kernel_divide_both_sides",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  a / k = b / k   [requires k != 0]`"
+  },
+  {
+   "rule": "HML-KERNEL-008",
+   "name": "kernel_exists_intro",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `phi(a)  |-  exists a : D . phi(a)   [a is a typed witness]`"
+  },
+  {
+   "rule": "HML-KERNEL-009",
+   "name": "kernel_forall_elim",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `forall x : D . phi(x)  |-  phi[t/x]   [requires t : D]`"
+  },
+  {
+   "rule": "HML-KERNEL-010",
+   "name": "kernel_forall_intro",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `phi(a)  |-  forall a : D . phi(a)   [a arbitrary]`"
+  },
+  {
+   "rule": "HML-KERNEL-011",
+   "name": "kernel_modus_ponens",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 2, shape `P, P implies Q  |-  Q`"
+  },
+  {
+   "rule": "HML-KERNEL-012",
+   "name": "kernel_modus_tollens",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 2, shape `not Q, P implies Q  |-  not P`"
+  },
+  {
+   "rule": "HML-KERNEL-013",
+   "name": "kernel_multiply_both_sides",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  a * k = b * k`"
+  },
+  {
+   "rule": "HML-KERNEL-014",
+   "name": "kernel_multiply_inequality",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a < b  |-  a * k < b * k   [requires k > 0]`"
+  },
+  {
+   "rule": "HML-KERNEL-015",
+   "name": "kernel_reflexivity",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 0, shape `|- t = t`"
+  },
+  {
+   "rule": "HML-KERNEL-016",
+   "name": "kernel_substitute",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 2, shape `a = b, P  |-  P[a := b]`"
+  },
+  {
+   "rule": "HML-KERNEL-017",
+   "name": "kernel_subtract_both_sides",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  a - k = b - k`"
+  },
+  {
+   "rule": "HML-KERNEL-018",
+   "name": "kernel_symmetry",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a = b  |-  b = a`"
+  },
+  {
+   "rule": "HML-KERNEL-019",
+   "name": "kernel_transitivity",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 2, shape `a = b, b = c  |-  a = c`"
+  },
+  {
+   "rule": "HML-KERNEL-020",
+   "name": "kernel_weaken_inequality",
+   "kind": "valid",
+   "outcome": "PASS",
+   "detail": "arity 1, shape `a < b  |-  a <= b`"
+  },
+  {
+   "rule": "HML-INV-001",
+   "name": "invariant_dependency",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant DEPENDENCY registered in verifier"
+  },
+  {
+   "rule": "HML-INV-002",
+   "name": "invariant_scope",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant SCOPE registered in verifier"
+  },
+  {
+   "rule": "HML-INV-003",
+   "name": "invariant_preconditions",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant PRECONDITIONS registered in verifier"
+  },
+  {
+   "rule": "HML-INV-004",
+   "name": "invariant_obligations",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant OBLIGATIONS registered in verifier"
+  },
+  {
+   "rule": "HML-INV-005",
+   "name": "invariant_candidates",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant CANDIDATES registered in verifier"
+  },
+  {
+   "rule": "HML-INV-006",
+   "name": "invariant_branch_join",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant BRANCH_JOIN registered in verifier"
+  },
+  {
+   "rule": "HML-INV-007",
+   "name": "invariant_warrant",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant WARRANT registered in verifier"
+  },
+  {
+   "rule": "HML-INV-008",
+   "name": "invariant_epistemic_status",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant EPISTEMIC_STATUS registered in verifier"
+  },
+  {
+   "rule": "HML-INV-009",
+   "name": "invariant_goal_discharge",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant GOAL_DISCHARGE registered in verifier"
+  },
+  {
+   "rule": "HML-INV-010",
+   "name": "invariant_type_domain",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant TYPE_DOMAIN registered in verifier"
+  },
+  {
+   "rule": "HML-INV-011",
+   "name": "invariant_frame",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "invariant FRAME registered in verifier"
+  },
+  {
+   "rule": "HML-ENUM-001",
+   "name": "enum_branchstatus_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "BranchStatus rejects unknown members; closed at ['OPEN', 'CLOSED', 'JOINED', 'ABANDONED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-ENUM-002",
+   "name": "enum_candidatestatus_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "CandidateStatus rejects unknown members; closed at ['PROPOSED', 'UNVERIFIED', 'VERIFIED', 'REJECTED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-ENUM-003",
+   "name": "enum_claimstatus_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "ClaimStatus rejects unknown members; closed at ['GIVEN', 'ASSUMED', 'DERIVED', 'VERIFIED', 'REFUTED', 'UNRESOLVED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-ENUM-004",
+   "name": "enum_errorclass_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "ErrorClass rejects unknown members; closed at ['MISSING_DEPENDENCY', 'SCOPE_VIOLATION', 'PRECONDITION_VIOLATION', 'OBLIGATION_VIOLATION', 'CANDIDATE_PROMOTION', 'INVALID_BRANCH_JOIN', 'WARRANT_VIOLATION', 'EPISTEMIC_VIOLATION', 'GOAL_DISCHARGE', 'TYPE_DOMAIN_VIOLATION']"
+  },
+  {
+   "rule": "HML-ENUM-005",
+   "name": "enum_goalstatus_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "GoalStatus rejects unknown members; closed at ['OPEN', 'DISCHARGED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-ENUM-006",
+   "name": "enum_obligationstate_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "ObligationState rejects unknown members; closed at ['OPEN', 'DISCHARGED', 'FAILED', 'UNKNOWN']"
+  },
+  {
+   "rule": "HML-ENUM-007",
+   "name": "enum_verdict_unknown_member",
+   "kind": "invalid",
+   "outcome": "PASS",
+   "detail": "Verdict rejects unknown members; closed at ['VALID', 'INVALID', 'UNRESOLVED']"
+  }
+ ]
+}

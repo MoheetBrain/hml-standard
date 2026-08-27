@@ -1,0 +1,982 @@
+{
+ "standard": "HML Standard",
+ "version": "1.0",
+ "entries": [
+  {
+   "id": "HML.REF.ACTION",
+   "name": "Action",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "operation",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "summary",
+     "type": "str",
+     "has_default": true,
+     "default": ""
+    },
+    {
+     "name": "output_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "preconditions",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "obligations_created",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "obligations_discharged",
+     "type": "tuple[dict[str, Any], ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "typing",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "warrant",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "goal_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "scope_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "branch_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "candidate_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "epistemic_effect",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:285",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.BRANCH",
+   "name": "Branch",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "predicate",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "BranchStatus",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "conclusion",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "partition_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:221",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.CANDIDATE",
+   "name": "Candidate",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "CandidateStatus",
+     "has_default": true,
+     "default": "PROPOSED"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "constraint_ids",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "origin",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "evidence_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "verification_result",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:192",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.CLAIM",
+   "name": "Claim",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "ClaimStatus",
+     "has_default": true,
+     "default": "GIVEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    },
+    {
+     "name": "domain",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:180",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.EVIDENCERECORD",
+   "name": "EvidenceRecord",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "kind",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "str",
+     "has_default": true,
+     "default": "UNKNOWN"
+    },
+    {
+     "name": "trusted",
+     "type": "bool",
+     "has_default": true,
+     "default": false
+    },
+    {
+     "name": "supports_rule",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "premise_ids",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "payload",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:263",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.GOAL",
+   "name": "Goal",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "GoalStatus",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "scope",
+     "type": "str",
+     "has_default": true,
+     "default": "global"
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:236",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.OBLIGATION",
+   "name": "Obligation",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "proposition",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "status",
+     "type": "ObligationState",
+     "has_default": true,
+     "default": "OPEN"
+    },
+    {
+     "name": "mandatory",
+     "type": "bool",
+     "has_default": true,
+     "default": true
+    },
+    {
+     "name": "origin",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    },
+    {
+     "name": "dependencies",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": []
+    },
+    {
+     "name": "discharge_evidence_id",
+     "type": "str | None",
+     "has_default": true,
+     "default": null
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:244",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.SEMANTICSTATE",
+   "name": "SemanticState",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "claims",
+     "type": "dict[str, Claim]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "candidates",
+     "type": "dict[str, Candidate]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "branches",
+     "type": "dict[str, Branch]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "goals",
+     "type": "dict[str, Goal]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "obligations",
+     "type": "dict[str, Obligation]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "active_scopes",
+     "type": "tuple[str, ...]",
+     "has_default": true,
+     "default": [
+      "global"
+     ]
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:309",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TRANSITION",
+   "name": "Transition",
+   "category": "state_record",
+   "fields": [
+    {
+     "name": "case_id",
+     "type": "str",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "action",
+     "type": "Action",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "state_before",
+     "type": "SemanticState",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "state_after",
+     "type": "SemanticState",
+     "has_default": false,
+     "default": null
+    },
+    {
+     "name": "evidence",
+     "type": "dict[str, EvidenceRecord]",
+     "has_default": true,
+     "default": {}
+    },
+    {
+     "name": "schema_version",
+     "type": "str",
+     "has_default": true,
+     "default": "semantic-firewall-case-0.1.0"
+    },
+    {
+     "name": "source",
+     "type": "dict[str, Any]",
+     "has_default": true,
+     "default": {}
+    }
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:333",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.BRANCHSTATUS",
+   "name": "BranchStatus",
+   "category": "vocabulary",
+   "members": [
+    "OPEN",
+    "CLOSED",
+    "JOINED",
+    "ABANDONED",
+    "UNKNOWN"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:116",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.CANDIDATESTATUS",
+   "name": "CandidateStatus",
+   "category": "vocabulary",
+   "members": [
+    "PROPOSED",
+    "UNVERIFIED",
+    "VERIFIED",
+    "REJECTED",
+    "UNKNOWN"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:77",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.CLAIMSTATUS",
+   "name": "ClaimStatus",
+   "category": "vocabulary",
+   "members": [
+    "GIVEN",
+    "ASSUMED",
+    "DERIVED",
+    "VERIFIED",
+    "REFUTED",
+    "UNRESOLVED",
+    "UNKNOWN"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:56",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.ERRORCLASS",
+   "name": "ErrorClass",
+   "category": "vocabulary",
+   "members": [
+    "MISSING_DEPENDENCY",
+    "SCOPE_VIOLATION",
+    "PRECONDITION_VIOLATION",
+    "OBLIGATION_VIOLATION",
+    "CANDIDATE_PROMOTION",
+    "INVALID_BRANCH_JOIN",
+    "WARRANT_VIOLATION",
+    "EPISTEMIC_VIOLATION",
+    "GOAL_DISCHARGE",
+    "TYPE_DOMAIN_VIOLATION"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:165",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.GOALSTATUS",
+   "name": "GoalStatus",
+   "category": "vocabulary",
+   "members": [
+    "OPEN",
+    "DISCHARGED",
+    "UNKNOWN"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:133",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.OBLIGATIONSTATE",
+   "name": "ObligationState",
+   "category": "vocabulary",
+   "members": [
+    "OPEN",
+    "DISCHARGED",
+    "FAILED",
+    "UNKNOWN"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:126",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.VERDICT",
+   "name": "Verdict",
+   "category": "vocabulary",
+   "members": [
+    "VALID",
+    "INVALID",
+    "UNRESOLVED"
+   ],
+   "implementation": "src/hamiltonian_lang/semantic_state/model.py:152",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.CONCEPTTYPE",
+   "name": "ConceptType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:603",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.DIMENSION",
+   "name": "Dimension",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:188",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.DISTRIBUTIONTYPE",
+   "name": "DistributionType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:511",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.EVENTTYPE",
+   "name": "EventType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:580",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.FUNCTIONTYPE",
+   "name": "FunctionType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:471",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.MATRIXTYPE",
+   "name": "MatrixType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:402",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.PREDICATETYPE",
+   "name": "PredicateType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:485",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.PRODUCTTYPE",
+   "name": "ProductType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:447",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.PROPOSITIONTYPE",
+   "name": "PropositionType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:574",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.QUANTITYTYPE",
+   "name": "QuantityType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:334",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.RANDOMVARIABLETYPE",
+   "name": "RandomVariableType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:498",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.SCALARTYPE",
+   "name": "ScalarType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:131",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.SETTYPE",
+   "name": "SetType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:436",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.SYMBOLICEXTENT",
+   "name": "SymbolicExtent",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:350",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.TENSORTYPE",
+   "name": "TensorType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:422",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.TYPE",
+   "name": "Type",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:65",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.UNKNOWNTYPE",
+   "name": "UnknownType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:613",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.TYPE.VECTORTYPE",
+   "name": "VectorType",
+   "category": "type",
+   "implementation": "src/hamiltonian_lang/types.py:387",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.ADD_BOTH_SIDES",
+   "name": "add_both_sides",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  a + k = b + k",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.ADD_INEQUALITY",
+   "name": "add_inequality",
+   "category": "kernel_rule",
+   "shape": "a < b  |-  a + k < b + k",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.AND_ELIM_LEFT",
+   "name": "and_elim_left",
+   "category": "kernel_rule",
+   "shape": "P and Q  |-  P",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.AND_ELIM_RIGHT",
+   "name": "and_elim_right",
+   "category": "kernel_rule",
+   "shape": "P and Q  |-  Q",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.AND_INTRO",
+   "name": "and_intro",
+   "category": "kernel_rule",
+   "shape": "P, Q  |-  P and Q",
+   "arity": 2,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.CONGRUENCE",
+   "name": "congruence",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  f(a) = f(b)",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.DIVIDE_BOTH_SIDES",
+   "name": "divide_both_sides",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  a / k = b / k   [requires k != 0]",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.EXISTS_INTRO",
+   "name": "exists_intro",
+   "category": "kernel_rule",
+   "shape": "phi(a)  |-  exists a : D . phi(a)   [a is a typed witness]",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.FORALL_ELIM",
+   "name": "forall_elim",
+   "category": "kernel_rule",
+   "shape": "forall x : D . phi(x)  |-  phi[t/x]   [requires t : D]",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.FORALL_INTRO",
+   "name": "forall_intro",
+   "category": "kernel_rule",
+   "shape": "phi(a)  |-  forall a : D . phi(a)   [a arbitrary]",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.MODUS_PONENS",
+   "name": "modus_ponens",
+   "category": "kernel_rule",
+   "shape": "P, P implies Q  |-  Q",
+   "arity": 2,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.MODUS_TOLLENS",
+   "name": "modus_tollens",
+   "category": "kernel_rule",
+   "shape": "not Q, P implies Q  |-  not P",
+   "arity": 2,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.MULTIPLY_BOTH_SIDES",
+   "name": "multiply_both_sides",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  a * k = b * k",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.MULTIPLY_INEQUALITY",
+   "name": "multiply_inequality",
+   "category": "kernel_rule",
+   "shape": "a < b  |-  a * k < b * k   [requires k > 0]",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.REFLEXIVITY",
+   "name": "reflexivity",
+   "category": "kernel_rule",
+   "shape": "|- t = t",
+   "arity": 0,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.SUBSTITUTE",
+   "name": "substitute",
+   "category": "kernel_rule",
+   "shape": "a = b, P  |-  P[a := b]",
+   "arity": 2,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.SUBTRACT_BOTH_SIDES",
+   "name": "subtract_both_sides",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  a - k = b - k",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.SYMMETRY",
+   "name": "symmetry",
+   "category": "kernel_rule",
+   "shape": "a = b  |-  b = a",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.TRANSITIVITY",
+   "name": "transitivity",
+   "category": "kernel_rule",
+   "shape": "a = b, b = c  |-  a = c",
+   "arity": 2,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.KERNEL.WEAKEN_INEQUALITY",
+   "name": "weaken_inequality",
+   "category": "kernel_rule",
+   "shape": "a < b  |-  a <= b",
+   "arity": 1,
+   "implementation": "src/hamiltonian_lang/reasoning/kernel.py",
+   "status": "normative"
+  },
+  {
+   "id": "HML.REF.BACKEND.CANONICAL",
+   "name": "canonical",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/canonical.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.ENGLISH",
+   "name": "english",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/english.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.HML",
+   "name": "hml",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/hml.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.LATEX",
+   "name": "latex",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/latex.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.LEAN",
+   "name": "lean",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/lean.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.STAN",
+   "name": "stan",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/stan.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.BACKEND.SYMPY",
+   "name": "sympy",
+   "category": "backend",
+   "implementation": "src/hamiltonian_lang/backends/sympy.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.LIBRARY.ALGEBRA",
+   "name": "algebra",
+   "category": "library",
+   "implementation": "src/hamiltonian_lang/libraries/algebra.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.LIBRARY.CALCULUS",
+   "name": "calculus",
+   "category": "library",
+   "implementation": "src/hamiltonian_lang/libraries/calculus.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.LIBRARY.NUMERICAL",
+   "name": "numerical",
+   "category": "library",
+   "implementation": "src/hamiltonian_lang/libraries/numerical.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.LIBRARY.PROBABILITY",
+   "name": "probability",
+   "category": "library",
+   "implementation": "src/hamiltonian_lang/libraries/probability.py",
+   "status": "implemented"
+  },
+  {
+   "id": "HML.REF.LIBRARY.THEOREM",
+   "name": "theorem",
+   "category": "library",
+   "implementation": "src/hamiltonian_lang/libraries/theorem.py",
+   "status": "implemented"
+  }
+ ],
+ "total": 66
+}
